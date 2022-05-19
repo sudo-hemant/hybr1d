@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 
 import { useParams } from "react-router-dom";
-import { Tag, Divider } from "antd";
+import { Tag } from "antd";
 import axios from "axios";
 
 import { ITEM_DETAIL_API } from "../api/api.constants";
 import Comments from "./comments";
+import Loading from "../separate/Loading";
 
 import "./itemDetail.css";
+
+import { data } from "./dummy";
 
 const ItemDetail = () => {
   const [loading, setLoading] = useState(false);
@@ -23,23 +26,8 @@ const ItemDetail = () => {
     try {
       const response = await axios.get(`${ITEM_DETAIL_API}/${itemId}`);
       const data = response.data;
+      console.log(data);
       setItemDetail(data);
-
-      // console.log("item detail");
-      // console.log(data);
-
-      // // temporary
-      // const childrens = data.children;
-      // console.log(childrens.length);
-
-      // const handleChildrenFilter = (children) => {
-      //   console.log(children.text);
-      //   return children.type === "comment" && children.text;
-      // };
-
-      // const filteredChildrens = childrens.filter(handleChildrenFilter);
-      // setChildrens(filteredChildrens);
-      // console.log(filteredChildrens);
     } catch (error) {
       console.error("error");
       console.log(error);
@@ -61,20 +49,31 @@ const ItemDetail = () => {
   return (
     <div>
       {loading ? (
-        <div> Loading ... </div>
+        <Loading />
       ) : (
         <div className="item-detail">
           <div className="heading-container">
             {/* <div className="item-title"> */}
-            {heading}
+            <h1>
+              <span className="points-tag">
+                <Tag color="#ff6600"> {points}</Tag>
+              </span>
+              {heading}
+            </h1>
             {/* </div> */}
 
             {/* <div className="item-points"> */}
-            <Tag color="#f50"> {points}</Tag>
+
             {/* </div> */}
           </div>
 
+          {/* <hr /> */}
+
           <div className="comments-container">
+            <hr />
+            <h2>
+              <b>Comments : </b>
+            </h2>
             <Comments comments={itemDetail.children} />
           </div>
         </div>

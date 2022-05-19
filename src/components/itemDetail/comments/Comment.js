@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 
 import Comments from "./Comments";
+
 import "./comment.css";
 
 const Comment = ({ comment }) => {
@@ -10,19 +11,22 @@ const Comment = ({ comment }) => {
     setShow(!show);
   };
 
-  // console.log(comment);
   return (
-    <div>
+    <Fragment>
       {comment ? (
         <div className="comment-container">
-          {comment.text}
-          <p>
+          {/* {comment.text} */}
+          <div dangerouslySetInnerHTML={{ __html: comment.text }}></div>
+
+          <div className="button-container">
             {Array.isArray(comment.children) && comment.children.length > 0 && (
-              <button onClick={handleClick}>
-                {show ? "Hide comments" : "Show comment"}
+              <button onClick={handleClick} className="expand-comment-button">
+                {show ? "Hide reply" : "Show reply"}
               </button>
             )}
-          </p>
+          </div>
+
+          <hr />
 
           {show &&
             Array.isArray(comment.children) &&
@@ -33,7 +37,7 @@ const Comment = ({ comment }) => {
       ) : (
         <div> no data to display</div>
       )}
-    </div>
+    </Fragment>
   );
 };
 

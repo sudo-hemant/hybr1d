@@ -3,8 +3,8 @@ import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import { ROUTES } from "./root.constants";
-import { Home, ItemDetail } from "./routes.lazyload";
-import NotFound from "./NotFound";
+import { Home, ItemDetail } from "./lazyLoad/routes.lazyload";
+import NotFound from "../separate/NotFound";
 
 const Root = () => {
   return (

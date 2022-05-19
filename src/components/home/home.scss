@@ -1,0 +1,30 @@
+.home-header {
+  align-items: center;
+  background-color: #ff6600;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-header-title {
+  display: grid;
+  padding-top: 1.2em;
+  place-content: center;
+  text-decoration: underline;
+
+  & > h1 {
+    font-size: 3.5em;
+  }
+}
+
+.home-header-input-antd {
+  border: none;
+  border-radius: 1.6rem;
+  font-size: 1.2rem;
+  height: 3rem;
+  margin: 2rem;
+  padding-left: 2rem;
+  width: 50%;
+}
+
+.home-body {
+}

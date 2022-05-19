@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
+import TypeSomethingPage from "../../separate/TypeSomethingPage";
+
 import "./body.css";
 
 const Body = ({
@@ -14,12 +16,10 @@ const Body = ({
   const navigate = useNavigate();
 
   const handleItemClick = (e, el) => {
-    console.log("clicked");
-    console.log(el);
+    const itemId = el.objectID;
 
-    const itemId = el.objectID
     if (itemId) {
-      navigate(`../item/${itemId}`, { replace: false, name: 'hemant' });
+      navigate(`../item/${itemId}`, { replace: false });
     }
   };
 
@@ -33,9 +33,7 @@ const Body = ({
       const lastChild = entries[0];
       if (!lastChild.isIntersecting) return;
 
-      // NOTE: CALL API AND LOAD MORE DATA
       setCurrentPage(currentPage + 1);
-
       observer.unobserve(lastChild.target);
     }, options);
 
@@ -45,29 +43,34 @@ const Body = ({
     }
   }, [containerRef, searchQueryResult]);
 
-  const searchQueryResultDataList = searchQueryResult;
-
   return (
-    <div className="body" ref={containerRef}>
-      {searchQueryResultDataList &&
-        searchQueryResultDataList.map((el, i) => {
-          const heading = el.title ? el.title : el.story_title;
-          const title =
-            heading?.length > 100 ? `${heading.slice(0, 100)}...` : heading;
-          const details = ` on ${el.created_at?.slice(0, 10)}, by ${el.author}`;
+    <>
+      {searchQueryResult.length > 0 ? (
+        <div className="home-body-container" ref={containerRef}>
+          {searchQueryResult.map((el, i) => {
+            const heading = el.title ? el.title : el.story_title;
+            const title =
+              heading?.length > 100 ? `${heading.slice(0, 100)}...` : heading;
+            const details = ` on ${el.created_at?.slice(0, 10)}, by ${
+              el.author
+            }`;
 
-          return (
-            <button
-              key={i}
-              className="body-element"
-              onClick={(e) => handleItemClick(e, el)}
-            >
-              <p>{title}</p>
-              <p>{details}</p>
-            </button>
-          );
-        })}
-    </div>
+            return (
+              <button
+                key={i}
+                className="home-body-element"
+                onClick={(e) => handleItemClick(e, el)}
+              >
+                <h1>{title}</h1>
+                <h3>{details}</h3>
+              </button>
+            );
+          })}
+        </div>
+      ) : (
+        <TypeSomethingPage />
+      )}
+    </>
   );
 };
 
