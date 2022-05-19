@@ -3,7 +3,7 @@ import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import { ROUTES } from "./root.constants";
-import { Home } from "./routes.lazyload";
+import { Home, ItemDetail } from "./routes.lazyload";
 import NotFound from "./NotFound";
 
 const Root = () => {
@@ -12,6 +12,7 @@ const Root = () => {
       <BrowserRouter>
         <Routes>
           <Route path={ROUTES.HOME} element={Home} />
+          <Route path={ROUTES.POST_DETAIL} element={ItemDetail} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,0 +1,23 @@
+.item-detail {
+
+}
+
+.heading-container {
+  display: flex;
+  background: aqua;
+
+}
+
+.item-title {
+  font-size: 2rem;
+
+}
+
+.item-points {
+
+}
+
+.comments-container {
+  margin: 2rem 3rem;
+  background-color: antiquewhite;
+}

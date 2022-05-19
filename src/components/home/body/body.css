@@ -1,0 +1,12 @@
+.body {}
+
+.body-element {
+  display: block;
+  width: 100%;
+  height: 5rem;
+
+  padding-left: 3rem;
+
+  text-align: left;
+  font-size: large;
+}

@@ -8,7 +8,7 @@ import {
   PAGE_QUERY,
   SEARCH_QUERY,
   HITS_PER_PAGE_QUERY,
-} from "./home.constants";
+} from "../api/api.constants";
 import Body from "./body";
 
 import "./home.css";
@@ -25,15 +25,15 @@ const Home = () => {
 
   const handleEnterOnSearchBar = async () => {
     const updatedCurrentPage = 0;
-    setCurrentPage(updatedCurrentPage)
-    setNbPages(1)
+    setCurrentPage(updatedCurrentPage);
+    setNbPages(1);
 
     try {
       const response = await axios.get(
         `${BASE_API}${SEARCH_QUERY}${searchText}${PAGE_QUERY}${updatedCurrentPage}${HITS_PER_PAGE_QUERY}`
       );
       const data = response.data;
-      console.log(data)
+      console.log(data);
 
       if (data && Object.keys(data).length) {
         setNbPages(data.nbPages);
@@ -43,16 +43,15 @@ const Home = () => {
       console.error("error");
       console.log(error);
     }
-  }
+  };
 
   const handleLoadMoreData = useCallback(async () => {
-
     try {
       const response = await axios.get(
         `${BASE_API}${SEARCH_QUERY}${searchText}${PAGE_QUERY}${currentPage}${HITS_PER_PAGE_QUERY}`
       );
       const data = response.data;
-      console.log(data)
+      console.log(data);
 
       if (data && Object.keys(data).length) {
         setNbPages(data.nbPages);
