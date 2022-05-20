@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+
+import "./typeSomethingPage.css";
 
 const TypeSomethingPage = () => {
   return (
-    <div>TypeSomethingPage</div>
-  )
-}
+    <div className="type-something-container">
+      <h1>Please type Something ... </h1>
+    </div>
+  );
+};
 
-export default TypeSomethingPage
+export default TypeSomethingPage;

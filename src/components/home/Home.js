@@ -80,7 +80,7 @@ const Home = () => {
   }, [handleLoadMoreData, currentPage, nbPages]);
 
   return (
-    <div>
+    <div className="home-container">
       <div className="home-header">
         <div className="home-header-title">
           <h1> Search Hacker News </h1>
@@ -94,18 +94,21 @@ const Home = () => {
         />
       </div>
 
+      {/* <div className="home-body"> */}
+
       {noResultFound ? (
         <NoResultsFound />
-      ) : (
-        <Body
+        ) : (
+          <Body
           searchText={searchText}
           setSearchText={setSearchText}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           searchQueryResult={searchQueryResult}
           setSearchQueryResult={setSearchQueryResult}
-        />
-      )}
+          />
+          )}
+          {/* </div> */}
     </div>
   );
 };

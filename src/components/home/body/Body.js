@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TypeSomethingPage from "../../separate/TypeSomethingPage";
@@ -44,7 +44,7 @@ const Body = ({
   }, [containerRef, searchQueryResult]);
 
   return (
-    <>
+    <Fragment>
       {searchQueryResult.length > 0 ? (
         <div className="home-body-container" ref={containerRef}>
           {searchQueryResult.map((el, i) => {
@@ -70,7 +70,7 @@ const Body = ({
       ) : (
         <TypeSomethingPage />
       )}
-    </>
+    </Fragment>
   );
 };
 

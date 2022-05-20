@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
@@ -8,7 +8,7 @@ import NotFound from "../separate/NotFound";
 
 const Root = () => {
   return (
-    <>
+    <Fragment>
       <BrowserRouter>
         <Routes>
           <Route path={ROUTES.HOME} element={Home} />
@@ -17,7 +17,7 @@ const Root = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </Fragment>
   );
 };
 
