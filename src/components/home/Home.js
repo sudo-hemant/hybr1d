@@ -75,7 +75,7 @@ const Home = () => {
     } catch (error) {
       toast(`Error occured: ${error}`, { type: "error" });
     }
-  }, [currentPage]);
+  }, [currentPage, searchQueryResult, searchText]);
 
   useEffect(() => {
     if (currentPage && currentPage < nbPages) {
