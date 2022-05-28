@@ -5,13 +5,7 @@ import TypeSomethingPage from "../../separate/TypeSomethingPage";
 
 import "./body.css";
 
-const Body = ({
-  searchText,
-  currentPage,
-  setCurrentPage,
-  searchQueryResult,
-  setSearchQueryResult,
-}) => {
+const Body = ({ currentPage, setCurrentPage, searchQueryResult }) => {
   const containerRef = useRef(null);
   const navigate = useNavigate();
 
@@ -39,7 +33,9 @@ const Body = ({
 
     if (containerRef.current && containerRef.current.children.length) {
       const childrenNodes = containerRef.current.children;
-      observer.observe(childrenNodes[childrenNodes.length - 10]);
+      if (childrenNodes.length > 10) {
+        observer.observe(childrenNodes[childrenNodes.length - 10]);
+      }
     }
   }, [containerRef, searchQueryResult]);
 

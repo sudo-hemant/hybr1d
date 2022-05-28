@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { Input } from "antd";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 import {
@@ -11,10 +12,13 @@ import {
 } from "../api/api.constants";
 import Body from "./body";
 import NoResultsFound from "../separate/NoResultsFound";
+import Loading from "../separate/Loading";
 
+import "react-toastify/dist/ReactToastify.css";
 import "./home.scss";
 
 const Home = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [nbPages, setNbPages] = useState(1);
@@ -27,6 +31,7 @@ const Home = () => {
 
   const handleEnterOnSearchBar = async () => {
     const updatedCurrentPage = 0;
+    setIsLoading(true);
     setCurrentPage(updatedCurrentPage);
     setNbPages(1);
 
@@ -35,7 +40,6 @@ const Home = () => {
         `${BASE_API}${SEARCH_QUERY}${searchText}${PAGE_QUERY}${updatedCurrentPage}${HITS_PER_PAGE_QUERY}`
       );
       const data = response.data;
-      console.log(data);
 
       if (data && Object.keys(data).length) {
         setNoResultFound(false);
@@ -47,12 +51,14 @@ const Home = () => {
         !(Array.isArray(data.hits) && data.hits.length)
       ) {
         setNoResultFound(true);
+        toast(`No Results Found`, { type: "error" });
       }
     } catch (error) {
       setNoResultFound(true);
-      console.error("error");
-      console.log(error);
+      toast(`Error occured: ${error}`, { type: "error" });
     }
+
+    setIsLoading(false);
   };
 
   const handleLoadMoreData = useCallback(async () => {
@@ -61,15 +67,13 @@ const Home = () => {
         `${BASE_API}${SEARCH_QUERY}${searchText}${PAGE_QUERY}${currentPage}${HITS_PER_PAGE_QUERY}`
       );
       const data = response.data;
-      console.log(data);
 
       if (data && Object.keys(data).length && data.hits.length) {
         data.nbPages && setNbPages(data.nbPages);
         setSearchQueryResult([...searchQueryResult, ...data.hits]);
       }
     } catch (error) {
-      console.error("error");
-      console.log(error);
+      toast(`Error occured: ${error}`, { type: "error" });
     }
   }, [currentPage]);
 
@@ -85,6 +89,7 @@ const Home = () => {
         <div className="home-header-title">
           <h1> Search Hacker News </h1>
         </div>
+
         <Input
           className="home-header-input-antd"
           value={searchText}
@@ -94,21 +99,22 @@ const Home = () => {
         />
       </div>
 
-      {/* <div className="home-body"> */}
-
-      {noResultFound ? (
+      {isLoading ? (
+        <Loading />
+      ) : noResultFound ? (
         <NoResultsFound />
-        ) : (
-          <Body
+      ) : (
+        <Body
           searchText={searchText}
           setSearchText={setSearchText}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           searchQueryResult={searchQueryResult}
           setSearchQueryResult={setSearchQueryResult}
-          />
-          )}
-          {/* </div> */}
+        />
+      )}
+
+      <ToastContainer />
     </div>
   );
 };

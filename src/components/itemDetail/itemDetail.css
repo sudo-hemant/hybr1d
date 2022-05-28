@@ -1,10 +1,12 @@
+body {
+  background-color: rgb(250, 231, 201);
+}
+
 .item-detail {
-  /* background-color: brown; */
-  margin-top: 2rem;
+  padding-top: 2rem;
 }
 
 .heading-container {
-  /* background: rgba(180, 180, 180); */
   display: flex;
   justify-content: left;
   font-size: 1.6rem;
@@ -12,35 +14,19 @@
 }
 
 .points-tag {
-  /* padding-bottom: 2rem; */
   margin-top: 0px;
   margin-left: 1rem;
-
-  /* background-color: red; */
 }
-
 
 .item-title {
   font-size: 1.6rem;
   padding-left: 3rem;
-  /* display: flex;
-  flex-wrap: wrap; */
-  /* padding: 1.6rem 0rem 1rem 3rem; */
 }
 
 .item-points {
   font-weight: bold;
-  /* font-size: 1em; */
-  /* margin-top: 1.6rem; */
-  /* margin-left: 0.5rem; */
-  /* background-color: red; */
 }
 
 .comments-container {
   margin: 2rem 3rem;
-  /* background-color: antiquewhite; */
-}
-
-.comments-container > h3 {
-  /* background-color: purple; */
 }

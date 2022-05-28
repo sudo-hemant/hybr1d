@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-import { useParams } from "react-router-dom";
 import { Tag } from "antd";
+import { useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 import { ITEM_DETAIL_API } from "../api/api.constants";
 import Comments from "./comments";
 import Loading from "../separate/Loading";
 
+import "react-toastify/dist/ReactToastify.css";
 import "./itemDetail.css";
-
-import { data } from "./dummy";
 
 const ItemDetail = () => {
   const [loading, setLoading] = useState(false);
@@ -19,8 +19,11 @@ const ItemDetail = () => {
   const params = useParams();
   const itemId = params?.id;
 
+  const displayError = () => {
+    toast(`Error in question !`, { type: "error" });
+  };
+
   const fetchItemDetail = useCallback(async () => {
-    console.log("api hit");
     setLoading(true);
 
     try {
@@ -28,9 +31,9 @@ const ItemDetail = () => {
       const data = response.data;
       console.log(data);
       setItemDetail(data);
+      toast(`Successfully loaded data !`, { type: "success" });
     } catch (error) {
-      console.error("error");
-      console.log(error);
+      toast(`Error occured: ${error} !`, { type: "error" });
     }
 
     setLoading(false);
@@ -38,13 +41,18 @@ const ItemDetail = () => {
 
   useEffect(() => {
     fetchItemDetail();
-  }, []);
-  // }, [fetchItemDetail]);
+  }, [fetchItemDetail]);
 
   const heading = setItemDetail
     ? itemDetail.title || itemDetail.story_title
     : "";
   const points = setItemDetail ? itemDetail.points : "";
+
+  useEffect(() => {
+    if (Object.keys(itemDetail).length && !heading) {
+      displayError();
+    }
+  }, [itemDetail, heading]);
 
   return (
     <div>
@@ -53,31 +61,31 @@ const ItemDetail = () => {
       ) : (
         <div className="item-detail">
           <div className="heading-container">
-            {/* <div className="item-title"> */}
             <h1>
               <span className="points-tag">
-                <Tag color="#ff6600"> {points}</Tag>
+                {points ? <Tag color="#ff6600"> {points}</Tag> : null}
               </span>
-              {heading}
+
+              {heading ? heading : `Question title not found !`}
             </h1>
-            {/* </div> */}
-
-            {/* <div className="item-points"> */}
-
-            {/* </div> */}
           </div>
-
-          {/* <hr /> */}
 
           <div className="comments-container">
             <hr />
-            <h2>
-              <b>Comments : </b>
-            </h2>
+
+            {itemDetail?.children?.length ? (
+              <h2>
+                <b>Comments : </b>
+              </h2>
+            ) : (
+              <h1> No Comments </h1>
+            )}
+
             <Comments comments={itemDetail.children} />
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

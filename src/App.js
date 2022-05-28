@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
-import "antd/dist/antd.css";
 
 import Root from "./components/root/Root";
+
+import "antd/dist/antd.css";
 
 const App = () => {
   return (

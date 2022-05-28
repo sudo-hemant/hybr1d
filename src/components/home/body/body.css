@@ -7,4 +7,10 @@
   padding-left: 4rem;
   text-align: left;
   width: 100%;
+  background-color: blanchedalmond;
+  border-width: 1px;
+}
+
+.home-body-element:hover {
+  background-color: rgb(249, 217, 169);
 }

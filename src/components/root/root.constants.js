@@ -1,4 +1,4 @@
 export const ROUTES = {
-  HOME: `/home`,
+  HOME: `/`,
   POST_DETAIL: `/item/:id`,
 };

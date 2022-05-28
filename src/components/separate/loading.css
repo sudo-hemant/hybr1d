@@ -1,0 +1,9 @@
+.loading-container {
+  height: 100vh;
+  background-color: blanchedalmond;
+  font-size: 4rem;
+
+  display: flex;
+  justify-content: center;
+  padding-top: 10%;
+}
