@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from "react";
+import React, { Fragment, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TypeSomethingPage from "../../separate/TypeSomethingPage";
@@ -17,10 +17,13 @@ const Body = ({ currentPage, setCurrentPage, searchQueryResult }) => {
     }
   };
 
-  const options = {
-    rootMargin: "100px",
-    threshold: 0,
-  };
+  const options = useMemo(
+    () => ({
+      rootMargin: "100px",
+      threshold: 0,
+    }),
+    []
+  );
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -37,7 +40,7 @@ const Body = ({ currentPage, setCurrentPage, searchQueryResult }) => {
         observer.observe(childrenNodes[childrenNodes.length - 10]);
       }
     }
-  }, [containerRef, searchQueryResult]);
+  }, [containerRef, currentPage, options, searchQueryResult, setCurrentPage]);
 
   return (
     <Fragment>

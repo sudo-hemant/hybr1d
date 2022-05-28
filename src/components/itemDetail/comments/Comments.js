@@ -3,9 +3,9 @@ import React, { Fragment } from "react";
 import Comment from "./Comment";
 
 const Comments = ({ comments }) => {
-  const filteredComments = comments && comments.filter(
-    (comment) => comment.type === "comment" && comment.text
-  );
+  const filteredComments =
+    comments &&
+    comments.filter((comment) => comment.type === "comment" && comment.text);
 
   return (
     <Fragment>
