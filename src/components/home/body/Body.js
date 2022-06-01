@@ -1,17 +1,11 @@
-import React, { Fragment, useEffect, useRef } from "react";
+import React, { Fragment, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TypeSomethingPage from "../../separate/TypeSomethingPage";
 
 import "./body.css";
 
-const Body = ({
-  searchText,
-  currentPage,
-  setCurrentPage,
-  searchQueryResult,
-  setSearchQueryResult,
-}) => {
+const Body = ({ currentPage, setCurrentPage, searchQueryResult }) => {
   const containerRef = useRef(null);
   const navigate = useNavigate();
 
@@ -23,10 +17,13 @@ const Body = ({
     }
   };
 
-  const options = {
-    rootMargin: "100px",
-    threshold: 0,
-  };
+  const options = useMemo(
+    () => ({
+      rootMargin: "100px",
+      threshold: 0,
+    }),
+    []
+  );
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -39,9 +36,11 @@ const Body = ({
 
     if (containerRef.current && containerRef.current.children.length) {
       const childrenNodes = containerRef.current.children;
-      observer.observe(childrenNodes[childrenNodes.length - 10]);
+      if (childrenNodes.length > 10) {
+        observer.observe(childrenNodes[childrenNodes.length - 10]);
+      }
     }
-  }, [containerRef, searchQueryResult]);
+  }, [containerRef, currentPage, options, searchQueryResult, setCurrentPage]);
 
   return (
     <Fragment>

@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { Fragment, useEffect } from "react";
+
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+import "./notFound.css";
 
 const NotFound = () => {
-  return (
-    <div>Error: NotFound</div>
-  )
-}
+  useEffect(() => {
+    toast(`Page Not Found.`, { type: "error" });
+  }, []);
 
-export default NotFound
+  return (
+    <Fragment>
+      <div className="not-found-container">Error: Page Not Found ...</div>
+      <ToastContainer />
+    </Fragment>
+  );
+};
+
+export default NotFound;
